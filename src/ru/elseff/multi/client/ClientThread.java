@@ -1,17 +1,19 @@
-package ru.elseff.client;
+package ru.elseff.multi.client;
+
+import ru.elseff.single.client.Client;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Locale;
 
-public class Client extends Thread {
+public class ClientThread extends Thread {
 
     private Socket socket;
     private BufferedReader in;
     private BufferedWriter out;
     private BufferedReader reader;
 
-    public Client(String serverAddress, int serverPort) {
+    public ClientThread(String serverAddress, int serverPort) {
         try {
             socket = new Socket(serverAddress, serverPort);
             System.out.printf("Client %d launched\n", socket.getLocalPort());
@@ -56,6 +58,6 @@ public class Client extends Thread {
     }
 
     public static void main(String[] args) {
-        new Client("127.0.0.1", 7000);
+        new Client("127.0.0.1", 4000);
     }
 }

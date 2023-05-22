@@ -1,4 +1,4 @@
-package ru.elseff.server;
+package ru.elseff.single.server;
 
 import java.io.*;
 import java.net.ServerSocket;

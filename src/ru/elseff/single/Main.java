@@ -1,6 +1,6 @@
-package ru.elseff;
+package ru.elseff.single;
 
-import ru.elseff.server.Server;
+import ru.elseff.single.server.Server;
 
 public class Main {
     public static void main(String[] args) {
