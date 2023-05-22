@@ -37,7 +37,7 @@ public class Client extends Thread {
             System.out.println(response);
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             System.out.println("Connection closed");
         }
     }
