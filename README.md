@@ -4,7 +4,7 @@
 
 ![img_1.png](images/preview.png)
 
-###For launch
+### For launch
 You need to launch the server and after it launch client in new terminal instance \
 ```
     javac -d build -cp src src/ru/elseff/*java
