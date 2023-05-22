@@ -2,6 +2,7 @@ package ru.elseff.client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Locale;
 
 public class Client extends Thread {
 
@@ -25,20 +26,32 @@ public class Client extends Thread {
     @Override
     public void run() {
         try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            reader = new BufferedReader(new InputStreamReader(System.in));
-
-            System.out.print("Write something:");
-            String message = reader.readLine();
-            out.write(message + "\n");
-            out.flush();
-            String response = in.readLine();
-            System.out.println(response);
+            try {
+                try {
+                    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    reader = new BufferedReader(new InputStreamReader(System.in));
+                    while (true) {
+                        System.out.print("Write something: ");
+                        String message = reader.readLine();
+                        out.write(message + "\n");
+                        out.flush();
+                        if ("close".equals(message.toLowerCase(Locale.ROOT)))
+                            break;
+                        String response = in.readLine();
+                        System.out.println(response);
+                    }
+                } finally {
+                    in.close();
+                    out.close();
+                    reader.close();
+                }
+            } finally {
+                socket.close();
+                System.out.println("Connection closed");
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            System.out.println("Connection closed");
         }
     }
 

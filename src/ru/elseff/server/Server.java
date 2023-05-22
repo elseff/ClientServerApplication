@@ -3,6 +3,7 @@ package ru.elseff.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Locale;
 
 public class Server extends Thread {
 
@@ -31,11 +32,16 @@ public class Server extends Thread {
                 try {
                     in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-                    String message = in.readLine();
-                    System.out.println(clientSocket.getPort() + " - " + message);
-                    String response = "Hi, it's server. Your wrote: " + message;
-                    out.write(response);
-                    out.flush();
+                    while (true) {
+                        String message = in.readLine();
+                        if ("close".equals(message.toLowerCase(Locale.ROOT)))
+                            break;
+
+                        String response = clientSocket.getPort() + " - " + message + "\n";
+                        System.out.print(response);
+                        out.write(response);
+                        out.flush();
+                    }
                 } finally {
                     in.close();
                     out.close();
